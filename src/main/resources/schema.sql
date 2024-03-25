@@ -4,15 +4,15 @@ DROP TABLE IF EXISTS Abonents;
 DROP TABLE IF EXISTS Cdr;
 
 CREATE TABLE Abonents (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    telephone VARCHAR(11) NOT NULL
+    msisdn VARCHAR(11) PRIMARY KEY
 );
 
 CREATE TABLE Cdr (
     id INT PRIMARY KEY AUTO_INCREMENT,
     call_type INT,
-    telephone VARCHAR(11),
+    msisdn VARCHAR(11),
     start_time INT,
-    end_time INT
+    end_time INT,
+    FOREIGN KEY (msisdn) REFERENCES Abonents(msisdn)
 );
 commit;
