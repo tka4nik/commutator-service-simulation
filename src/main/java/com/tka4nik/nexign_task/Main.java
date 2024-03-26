@@ -1,37 +1,40 @@
 package com.tka4nik.nexign_task;
 
-import com.tka4nik.nexign_task.impl.ServiceBus;
+import com.tka4nik.nexign_task.implementation.ServiceBus;
+import com.tka4nik.nexign_task.model.AllCDRs;
+import com.tka4nik.nexign_task.model.CDRsConsumer;
+import com.tka4nik.nexign_task.model.CDRsSupplier;
+import com.tka4nik.nexign_task.model.MSISDNsSupplier;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class Main {
     public static void main(String[] args) {
-        CDRService cdr = new CDRService();
-        cdr.generate_cdr();
+        ServiceBus factory = ServiceBus.create();
+        doTask(factory);
     }
 
-    public AllCDRs createCDRs(ServiceBus factory) {
-        ArrayList<String> msisdns = new ArrayList<>();
-        // msisdn supplier?
-        //TODO: Generate
-        factory.getMsidnsConsumer().saveAllmsidns(msisdns.iterator());
-
-        CDRsSupplier generator = factory.createRandomGenerator(msisdns);
-        for (int i = 0; i <= 12; i++) {
-            CDRsConsumer file_storage = factory.createFileStorage(new File(String.format("%d_cdr", i)));
-            file_storage.consume(generator.supply()); //TODO: Implement
-
-        }
-        return null;
-    }
-    public void doTask(ServiceBus factory) {
-//        CDRsConsumer file_storage = factory.createFileStorage();
+    public static void doTask(ServiceBus factory) {
         AllCDRs db = createCDRs(factory);
         CDRsConsumer consumer = factory.getH2Storage();
 //        consumer.consume(db.getAllCDRs());
+    }
 
+    public static AllCDRs createCDRs(ServiceBus factory) {
+        MSISDNsSupplier msisdns_generator = factory.getMSISDNsGenerator();
+        List<String> msisdns = msisdns_generator.supply_msisdns();
+
+        factory.getMsidnsConsumer().consume_msisdns(msisdns.iterator());
+
+        CDRsSupplier generator = factory.createCDRsGenerator(msisdns);
+        for (int i = 1; i <= 12; i++) {
+            CDRsConsumer file_storage = factory.createFileStorage(new File(String.format("./cdr/%d_cdr", i)));
+            file_storage.consume_cdrs(generator.supply(i));
+
+        }
+        return null;
     }
 }
 

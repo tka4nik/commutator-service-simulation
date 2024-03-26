@@ -1,6 +1,6 @@
-package com.tka4nik.nexign_task;
+package com.tka4nik.nexign_task.model;
 
-public interface UDR {
+public interface UDRSupplier {
     void generateReport();
 
     void generateReport(String msisdn);

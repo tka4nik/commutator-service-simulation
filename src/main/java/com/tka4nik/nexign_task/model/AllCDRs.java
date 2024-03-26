@@ -1,4 +1,4 @@
-package com.tka4nik.nexign_task;
+package com.tka4nik.nexign_task.model;
 
 public interface AllCDRs extends CDRsSupplier {
 //    Iterator<CDR> getAllCDRs();

@@ -11,8 +11,8 @@ CREATE TABLE Cdr (
     id INT PRIMARY KEY AUTO_INCREMENT,
     call_type INT,
     msisdn VARCHAR(11),
-    start_time INT,
-    end_time INT,
+    start_time LONG,
+    end_time LONG,
     FOREIGN KEY (msisdn) REFERENCES Abonents(msisdn)
 );
 commit;
