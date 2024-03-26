@@ -1,9 +1,9 @@
 package com.tka4nik.nexign_task.implementation;
 
 import com.tka4nik.nexign_task.model.AllCDRs;
-import com.tka4nik.nexign_task.model.UDRSupplier;
+import com.tka4nik.nexign_task.model.UDRsSupplier;
 
-class DefaultUDR implements UDRSupplier {
+class DefaultUDR implements UDRsSupplier {
     private final AllCDRs cdrs;
 
     DefaultUDR(AllCDRs cdrs) {

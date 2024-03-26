@@ -7,6 +7,12 @@ import com.tka4nik.nexign_task.model.MSISDNsConsumer;
 import java.sql.*;
 import java.util.Iterator;
 
+
+
+/**
+ * Class that handles consumtion of Objects (CDR or Msisdn iterator) by H2 in-memory SQL database.
+ * Implements both CDRsConsumer and MSISDNsConsumer interfaces.
+ */
 class H2Storage implements CDRsConsumer, MSISDNsConsumer {
     private final Connection connection;
 
@@ -19,7 +25,7 @@ class H2Storage implements CDRsConsumer, MSISDNsConsumer {
     }
 
     @Override
-    public void consume_msisdns(Iterator<String> msidns) {
+    public void consumeMsisdns(Iterator<String> msidns) {
         try {
             while (msidns.hasNext()) {
                 PreparedStatement statement = connection.prepareStatement("INSERT INTO Abonents (msisdn) VALUES (?)");
@@ -32,7 +38,7 @@ class H2Storage implements CDRsConsumer, MSISDNsConsumer {
     }
 
     @Override
-    public void consume_cdrs(Iterator<CDR> cdrs) {
+    public void consumeCdrs(Iterator<CDR> cdrs) {
         try {
             while (cdrs.hasNext()) {
                 PreparedStatement statement = connection.prepareStatement("INSERT INTO Cdr (call_type, msisdn, start_time, end_time) VALUES (?, ?, ?, ?)");

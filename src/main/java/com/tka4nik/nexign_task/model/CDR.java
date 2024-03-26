@@ -63,6 +63,6 @@ public class CDR {
 
     @Override
     public String toString() {
-        return String.format("%01d,%s,%d,%d\n", callType, msisdn, startTime, endTime);
+        return String.format("%02d,%s,%d,%d\n", callType, msisdn, startTime, endTime);
     }
 }

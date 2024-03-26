@@ -1,12 +1,13 @@
 package com.tka4nik.nexign_task.implementation;
 
-//import com.tka4nik.nexign_task.impl.;
-
 import com.tka4nik.nexign_task.model.*;
 
 import java.io.File;
 import java.util.List;
 
+/**
+ * Class that integrates model and its implementations.
+ */
 public class ServiceBus {
     private final H2Storage h2Storage;
 
@@ -14,6 +15,8 @@ public class ServiceBus {
         this.h2Storage = h2Storage;
     }
 
+    // Fabric Method pattern, to make handling exceptions from H2Storage possible,
+    // while allowing to easier test H2 at the same time.
     public static ServiceBus create() {
         try {
             return new ServiceBus(new H2Storage());
@@ -22,7 +25,7 @@ public class ServiceBus {
         }
     }
 
-    public CDRsSupplier createCDRsGenerator(List<String> msisdns) {
+    public CDRsSupplier getCDRsGenerator(List<String> msisdns) {
         return new RandomCDRsGenerator(msisdns);
     }
 
@@ -34,7 +37,7 @@ public class ServiceBus {
         return new RandomMSISDNsGenerator();
     }
 
-    public CDRsConsumer createFileStorage(File file) {
+    public CDRsConsumer getFileStorage(File file) {
         return new CDRsFileStorage(file);
     }
 
@@ -42,7 +45,7 @@ public class ServiceBus {
         return this.h2Storage;
     }
 
-    public UDR createUDR(AllCDRs cdrs) {
+    public UDRsSupplier getUDRSupplier(AllCDRs cdrs) {
         return null;
     }
 }

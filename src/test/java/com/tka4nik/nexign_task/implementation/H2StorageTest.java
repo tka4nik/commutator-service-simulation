@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.*;
 import java.util.ArrayList;
 
+
 class H2StorageTest {
 
     @Test
@@ -16,7 +17,7 @@ class H2StorageTest {
         ArrayList<String> msidns = new ArrayList<>();
         msidns.add("79262268435");
         msidns.add("79263336843");
-        testee.consume_msisdns(msidns.iterator());
+        testee.consumeMsisdns(msidns.iterator());
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM Abonents");
         ResultSet result = statement.executeQuery();
 
@@ -37,12 +38,12 @@ class H2StorageTest {
         ArrayList<String> msidns = new ArrayList<>();
         msidns.add("79262268435");
         msidns.add("79264678435");
-        testee.consume_msisdns(msidns.iterator());
+        testee.consumeMsisdns(msidns.iterator());
 
         ArrayList<CDR> cdrs = new ArrayList<>();
         cdrs.add(new CDR(1, "79262268435", 123123123,123123124));
         cdrs.add(new CDR(2, "79264678435", 126123123,126123124));
-        testee.consume_cdrs(cdrs.iterator());
+        testee.consumeCdrs(cdrs.iterator());
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM Cdr");
         ResultSet result = statement.executeQuery();
 

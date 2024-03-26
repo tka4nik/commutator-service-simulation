@@ -1,7 +1,7 @@
 -- noinspection SqlNoDataSourceInspectionForFile
 
-DROP TABLE IF EXISTS Abonents;
 DROP TABLE IF EXISTS Cdr;
+DROP TABLE IF EXISTS Abonents;
 
 CREATE TABLE Abonents (
     msisdn VARCHAR(11) PRIMARY KEY

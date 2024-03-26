@@ -9,6 +9,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
 
+
+/**
+ * Class that handles consumption of CDRs (Call Detail Records) by storing them in .txt files.
+ * Implements CDRsConsumer interface.
+ */
 class CDRsFileStorage implements CDRsConsumer {
     private final File file;
 
@@ -17,7 +22,7 @@ class CDRsFileStorage implements CDRsConsumer {
     }
 
     @Override
-    public void consume_cdrs(Iterator<CDR> iterator) {
+    public void consumeCdrs(Iterator<CDR> iterator) {
         try {
             FileWriter fileWriter = new FileWriter(file);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);

@@ -1,12 +1,10 @@
 package com.tka4nik.nexign_task;
 
 import com.tka4nik.nexign_task.implementation.ServiceBus;
-import com.tka4nik.nexign_task.model.AllCDRs;
-import com.tka4nik.nexign_task.model.CDRsConsumer;
-import com.tka4nik.nexign_task.model.CDRsSupplier;
-import com.tka4nik.nexign_task.model.MSISDNsSupplier;
+import com.tka4nik.nexign_task.model.*;
 
 import java.io.File;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -18,21 +16,23 @@ public class Main {
 
     public static void doTask(ServiceBus factory) {
         AllCDRs db = createCDRs(factory);
-        CDRsConsumer consumer = factory.getH2Storage();
 //        consumer.consume(db.getAllCDRs());
     }
 
     public static AllCDRs createCDRs(ServiceBus factory) {
-        MSISDNsSupplier msisdns_generator = factory.getMSISDNsGenerator();
-        List<String> msisdns = msisdns_generator.supply_msisdns();
+        MSISDNsSupplier msisdnsGenerator = factory.getMSISDNsGenerator();
+        List<String> msisdns = msisdnsGenerator.supplyMsisdns();
 
-        factory.getMsidnsConsumer().consume_msisdns(msisdns.iterator());
+        factory.getMsidnsConsumer().consumeMsisdns(msisdns.iterator());
 
-        CDRsSupplier generator = factory.createCDRsGenerator(msisdns);
+        CDRsSupplier generator = factory.getCDRsGenerator(msisdns);
+        CDRsConsumer h2Storage = factory.getH2Storage();
         for (int i = 1; i <= 12; i++) {
-            CDRsConsumer file_storage = factory.createFileStorage(new File(String.format("./cdr/%d_cdr", i)));
-            file_storage.consume_cdrs(generator.supply(i));
+            CDRsConsumer fileStorage = factory.getFileStorage(new File(String.format("./cdr/%d_cdr.txt", i)));
 
+            Iterator<CDR> cdrs = generator.supply(i);
+            fileStorage.consumeCdrs(cdrs);
+            h2Storage.consumeCdrs(cdrs);
         }
         return null;
     }
