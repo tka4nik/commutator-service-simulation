@@ -7,6 +7,8 @@
 - Реализации это соответственно (`H2Storage`, `CDRsFileStorage`), (`RandomCDRsGenerator`), (`H2Storage`), (`RandomMSISDNsGenerator`), (`DefaultUDR`)
 - Связывает эти две части `ServiceBus` класс. 
 
+Присутствует работа с in-memory базой данных H2.
+
 ## Задание:
 
 Все звонки, совершенные абонентом сотового оператора, фиксируются в CDR файлы, которые собираются на коммутаторах.
