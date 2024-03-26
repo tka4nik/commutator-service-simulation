@@ -13,7 +13,7 @@ public class Main {
     }
 
     public AllCDRs createCDRs(ServiceBus factory) {
-        ArrayList<String> msisdns = new ArrayList<String>();
+        ArrayList<String> msisdns = new ArrayList<>();
         // msisdn supplier?
         //TODO: Generate
         factory.getMsidnsConsumer().saveAllmsidns(msisdns.iterator());

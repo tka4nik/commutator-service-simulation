@@ -25,7 +25,6 @@ class CDRsH2Storage implements CDRsConsumer, MsidnsConsumer {
                 PreparedStatement statement = connection.prepareStatement("INSERT INTO Abonents (msisdn) VALUES (?)");
                 statement.setString(1, msidns.next());
                 statement.execute();
-//                msidns.next()
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

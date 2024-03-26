@@ -23,23 +23,23 @@ public class ServiceBus {
         }
     }
 
-    CDRsConsumer createFileStorage(File file) {
+    public CDRsConsumer createFileStorage(File file) {
         return null;
     }
 
-    CDRsConsumer getH2Storage() {
+    public CDRsConsumer getH2Storage() {
         return this.cdrsH2Storage;
     }
 
-    CDRsSupplier createRandomGenerator(List<String> msisdns) {
+    public CDRsSupplier createRandomGenerator(List<String> msisdns) {
         return null;
     }
 
-    UDR createUDR(AllCDRs cdrs) {
+    public UDR createUDR(AllCDRs cdrs) {
         return null;
     }
 
-    MsidnsConsumer getMsidnsConsumer() {
+    public MsidnsConsumer getMsidnsConsumer() {
         return this.cdrsH2Storage;
     }
 }
