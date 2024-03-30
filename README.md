@@ -3,8 +3,8 @@
 Я подошел к задаче, используя инструментарий ООП.
 
 Решение состоит из Модели и ее Реализации:
-- Интерфейсные классы `CDRsConsumer`, `CDRsSupplier`, `MSISDNsConsumer`, `MSISDNsSupplier`, `UDRsSupplier`
-- Реализации это соответственно (`H2Storage`, `CDRsFileStorage`), (`RandomCDRsGenerator`), (`H2Storage`), (`RandomMSISDNsGenerator`), (`DefaultUDR`)
+- Интерфейсные классы `CDRsConsumer`, `CDRsSupplier`, `MSISDNsConsumer`, `MSISDNsSupplier`, `UDRsConsumer`, `UDRsSupplier`
+- Реализации это соответственно (`H2Storage`, `CDRsFileStorage`), (`RandomCDRsGenerator`), (`H2Storage`), (`RandomMSISDNsGenerator`), (`GenerateJSONFromUDRs`), (`CreateUDRsFromFile`)
 - Связывает эти две части `ServiceBus` класс. 
 
 Присутствует работа с in-memory базой данных H2.

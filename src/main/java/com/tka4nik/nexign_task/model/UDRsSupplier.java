@@ -1,9 +1,7 @@
 package com.tka4nik.nexign_task.model;
 
+import java.util.Map;
+
 public interface UDRsSupplier {
-    void generateReport();
-
-    void generateReport(String msisdn);
-
-    void generateReport(String msisdn, int month);
+    Map<String, Map<String, String>> supply();
 }

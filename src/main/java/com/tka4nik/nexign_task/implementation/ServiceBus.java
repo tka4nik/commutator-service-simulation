@@ -4,6 +4,7 @@ import com.tka4nik.nexign_task.model.*;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class that integrates model and its implementations.
@@ -45,7 +46,11 @@ public class ServiceBus {
         return this.h2Storage;
     }
 
-    public UDRsSupplier getUDRSupplier(AllCDRs cdrs) {
-        return null;
+    public UDRsSupplier getUDRSupplier(String filepath) {
+        return new CreateUDRsFromFile(filepath);
+    }
+
+    public UDRsConsumer getUDRConsumer(String filepath, Map<String, Map<String,String>> udrs) {
+        return new GenerateJSONFromUDRs(filepath, udrs);
     }
 }

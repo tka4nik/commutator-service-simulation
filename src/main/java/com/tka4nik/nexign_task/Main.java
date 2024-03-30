@@ -6,6 +6,7 @@ import com.tka4nik.nexign_task.model.*;
 import java.io.File;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 
 public class Main {
@@ -15,11 +16,13 @@ public class Main {
     }
 
     public static void doTask(ServiceBus factory) {
-        AllCDRs db = createCDRs(factory);
-//        consumer.consume(db.getAllCDRs());
+        String filepath_cdr = "./cdr/";
+        String filepath_udr = "./reports/";
+        createCDRs(factory, filepath_cdr);
+        createUDRs(factory, filepath_cdr, filepath_udr);
     }
 
-    public static AllCDRs createCDRs(ServiceBus factory) {
+    public static void createCDRs(ServiceBus factory, String filepath) {
         MSISDNsSupplier msisdnsGenerator = factory.getMSISDNsGenerator();
         List<String> msisdns = msisdnsGenerator.supplyMsisdns();
 
@@ -28,13 +31,18 @@ public class Main {
         CDRsSupplier generator = factory.getCDRsGenerator(msisdns);
         CDRsConsumer h2Storage = factory.getH2Storage();
         for (int i = 1; i <= 12; i++) {
-            CDRsConsumer fileStorage = factory.getFileStorage(new File(String.format("./cdr/%d_cdr.txt", i)));
+            CDRsConsumer fileStorage = factory.getFileStorage(new File(String.format(filepath + "%d_cdr.txt", i)));
 
             Iterator<CDR> cdrs = generator.supply(i);
             fileStorage.consumeCdrs(cdrs);
             h2Storage.consumeCdrs(cdrs);
         }
-        return null;
+    }
+
+    public static void createUDRs(ServiceBus factory, String filepath_cdr, String filepath_udr) {
+        UDRsSupplier udrsSupplier = factory.getUDRSupplier(filepath_cdr);
+        factory.getUDRConsumer(filepath_udr, udrsSupplier.supply()).generateReport();
+
     }
 }
 
